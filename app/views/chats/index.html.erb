@@ -1,2 +1,12 @@
-<h1>Chats#index</h1>
-<p>Find me in app/views/chats/index.html.erb</p>
+<div class="container">
+  <h1 class="text-center">Historique Conversations</h1>
+
+  <div class ="d-grid gap-3">
+    <% @chats.each do |chat| %>
+      <div class="card-body p-2">
+            <%= link_to chat.persona, chat_path(chat) %>
+      </div>
+          <% end %>
+  </div>
+<%= link_to "Page d'accueil", root_path, class: "btn main-button mt-2" %>
+</div>

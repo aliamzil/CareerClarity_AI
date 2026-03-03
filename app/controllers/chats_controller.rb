@@ -2,7 +2,7 @@ class ChatsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_chat, only: [:show]
   def index
-    @chat = current_user.chats
+    @chats = current_user.chats
   end
 
   def show
@@ -17,10 +17,11 @@ class ChatsController < ApplicationController
   def create
     @chat = Chat.new(chat_params)
     @chat.user = current_user
-    if @chat.save
+    @chat.persona = params[:persona]
+    if @chat.save!
       redirect_to chat_path(@chat)
     else
-      render :new, status: :unprocessable_entity
+      render "pages/home", status: :unprocessable_entity
     end
   end
 
@@ -31,6 +32,6 @@ class ChatsController < ApplicationController
   end
 
   def chat_params
-    params.require(:chat).permit(:title, :persona)
+    params.require(:chat).permit(:title)
   end
 end
