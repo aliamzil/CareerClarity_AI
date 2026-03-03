@@ -2,7 +2,7 @@ class ChatsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_chat, only: [:show]
   def index
-    @chat = current_user.chats
+    @chats = current_user.chats
   end
 
   def show
