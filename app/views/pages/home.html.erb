@@ -3,26 +3,26 @@
 <div class="container">
 
   <div class="hero-container text-center">
-    <h1>CareerClarity AI</h1>
-    <p>Moins de doutes. Plus de clarté.</p>
+    <h1 class="fw-bold">CareerClarity AI</h1>
+    <p class="fw-semibold">Moins de doutes. Plus de clarté.</p>
   </div>
 
-<!-- Form --->
-  <div class="form-container justify-content-center">
-    <%= simple_form_for @chat do |f| %>
-      <%= f.input :persona, collection: ["avec emploi", "sans emploi"] %>
-      <%= f.input :title %>
-      <%= f.input :@content %>
-      <%= f.submit "Poser une question", class: "btn btn-primary" %>
-    <% end %>
-  </div>
+<!-- Main Button --->
+ <button class="btn main-button">Démarrez votre coaching</button>
+      <%= simple_form_for @chat do |f| %>
+        <%= f.hidden_field :title, value: "" %>
+        <%= f.submit "Sans emploi", value: "Sans emploi", name: :persona, class: "btn main-button" %>
+        <%= f.submit "Avec emploi", value: "Avec emploi", name: :persona, class: "btn main-button" %>
+      <% end %>
 
-<!-- Bottom nav --->
-
-  <div class="bottom-container d-flex justify-content-evenly">
-    <%= link_to "Historique", "#" %>
-    <%= link_to "Favoris", "#" %>
-    <%= link_to "Profil", "#" %>
-  </div>
-
+<!-- JS- stimulus pour afficher les bouttons persona --->
+<div class="">
+  <%= link_to "Historique", chats_path, class: "btn btn-primary main-button mt-5 mb-5" %>
 </div>
+
+  <div class="bottom-container d-flex justify-content-evenly mt-5">
+    <%= link_to "Favoris", "#", class: "btn mt-2" %>
+    <%= link_to "Profil", "#", class: "btn mt-2" %>
+  </div>
+</div>
+<!-- Bottom nav --->
