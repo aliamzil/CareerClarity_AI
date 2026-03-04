@@ -7,22 +7,24 @@
     <p class="fw-semibold">Moins de doutes. Plus de clarté.</p>
   </div>
 
-<!-- Main Button --->
- <button class="btn main-button">Démarrez votre coaching</button>
+  <!-- Main Button --->
+  <div class="mt-0 text-center">
+  <button class="btn main-button">Démarrez votre coaching</button>
       <%= simple_form_for @chat do |f| %>
         <%= f.hidden_field :title, value: "" %>
         <%= f.submit "Sans emploi", value: "Sans emploi", name: :persona, class: "btn main-button" %>
         <%= f.submit "Avec emploi", value: "Avec emploi", name: :persona, class: "btn main-button" %>
       <% end %>
+  <!-- JS- stimulus pour afficher les bouttons persona --->
+  </div>
 
-<!-- JS- stimulus pour afficher les bouttons persona --->
-<div class="">
-  <%= link_to "Historique", chats_path, class: "btn btn-primary main-button mt-5 mb-5" %>
-</div>
+  <div class="page-center text-center d-grip">
+    <%= link_to "Historique", chats_path, class: "btn histo-button btn-lg btn-block" %>
+  </div>
 
   <div class="bottom-container d-flex justify-content-evenly mt-5">
-    <%= link_to "Favoris", "#", class: "btn mt-2" %>
-    <%= link_to "Profil", "#", class: "btn mt-2" %>
+    <div><%= link_to "Favoris", "#", class: "btn btn-primary"%></div>
+    <div><%= link_to "Profil", "#", class: "btn btn-primary"%></div>
   </div>
 </div>
 <!-- Bottom nav --->
