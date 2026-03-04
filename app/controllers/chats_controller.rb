@@ -19,7 +19,9 @@ class ChatsController < ApplicationController
     @chat = Chat.new(chat_params)
     @chat.user = current_user
     @chat.persona = params[:persona]
-    if @chat.save!
+    @chat.title = Chat::DEFAULT_TITLE # On initialise avec le titre par défaut
+    # @chat = current_user.chats.new(chat_params) # en 1 ligne
+    if @chat.save
       redirect_to chat_path(@chat)
     else
       render "pages/home", status: :unprocessable_entity

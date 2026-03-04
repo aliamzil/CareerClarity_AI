@@ -17,26 +17,43 @@ class MessagesController < ApplicationController
   - Commence toujours par comprendre la situation de l'utilisateur"
 
   def create
-    # creation d'un nouveau message
-    @chat = current_user.chat.find(params[:chat_id])
+    @chat = current_user.chats.find(params[:chat_id])
     @message = Message.new(message_params)
     @message.chat = @chat
     @message.role = 'user'
+
     if @message.save
-      # 2- ON CREE L'ASSISTANT
-      ruby_llm = RubyLLM.chat.with_instructions(instructions)
-      # 3- ON POSE LA QUESTION A L'ASSISTANT
-      response = ruby_llm.ask(@message.content)
-      # 4- ON STOCK LA REPONSE DE L'ASSISTANT EN DB POUR INITIER UNE CONVERSATION
+      # Correction : Utilisation d'une méthode plus simple pour l'historique
+      @ruby_llm_chat = RubyLLM.chat.with_instructions(SYSTEM_PROMPT)
+
+      # On ajoute les anciens messages à l'IA pour qu'elle ait de la mémoire
+      @chat.messages.where.not(id: @message.id).each do |msg|
+        @ruby_llm_chat.add_message(role: msg.role, content: msg.content)
+      end
+
+      # On pose la question avec le contenu du nouveau message
+      response = @ruby_llm_chat.ask(@message.content)
+
+      # Sauvegarde de la réponse de l'IA
       Message.create(content: response.content, role: "assistant", chat: @chat)
+
+      # Mise à jour du titre si c'est le premier message
       @chat.generate_title_from_first_message
+
       redirect_to chat_path(@chat)
     else
-      render "chats/show"
+      @messages = @chat.messages
+      render "chats/show", status: :unprocessable_entity
     end
   end
 
   private
+
+  def build_conversation_history
+    @chat.messages.each do |message|
+      @ruby_llm_chat.add_message(message)
+    end
+  end
 
   def message_params
     params.require(:message).permit(:content)
