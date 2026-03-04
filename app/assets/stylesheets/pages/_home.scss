@@ -1,4 +1,35 @@
 .page-center {
-  height: 400px;
   align-content: center;
+}
+
+.profil-container {
+  align-content: center;
+  text-align: -webkit-center;
+}
+
+.title {
+  font-size: xxx-large;
+  font-weight: bold;
+}
+
+.bottom-container {
+  background-color: #003A9B;
+  border-radius: 20px;
+  text-align: center;
+  height: 50px;
+}
+
+.hero-container {
+  width: 100%;
+  color: #003A9B;
+  height: 230px;
+  background-position: center;
+  align-content: center;
+  background-image: linear-gradient(rgba(0,0,0,0.2)), url('Bureau.jpg');
+  border-radius: 20px;
+}
+
+.icon {
+  color: white;
+  size: 20px;
 }
