@@ -1,12 +1,72 @@
-<div class="container">
-  <h1 class="text-center">Historique Conversations</h1>
+<!-- container Bootstrap pour structurer la page et ajouter un padding vertical -->
+<div class="container py-5">
 
-  <div class ="d-grid gap-3">
-    <% @chats.each do |chat| %>
-      <div class="card-body p-2">
-            <%= link_to chat.persona, chat_path(chat) %>
-      </div>
-          <% end %>
+  <!-- bloc pour le titre, margin-bottom Bootstrap -->
+  <div class="header mb-5">
+    <!-- classe CSS custom définie dans le SCSS -->
+    <h1 class="title">Historique des conversations</h1>
+    <!-- classe CSS custom définie dans le SCSS -->
+    <p class="subtitle">Retrouvez vos sessions de coaching</p>
   </div>
-<%= link_to "Page d'accueil", root_path, class: "btn main-button mt-2" %>
+  
+  <!-- Bootstrap grid system (espace entre les colonnes) -->
+  <div class="row g-4">
+
+    <!-- créer une carte Rails pour chaque chat.
+    vient du controller @chats = Chat.all -->
+    <% @chats.each do |chat| %>
+      
+      <!-- colonnes responsives Bootstrap : 
+      mobile => 1 carte par ligne (prend 12 colonnes soit toute la largeur)
+      tablette => 2 cartes par ligne (prend 6 colonnes soit la moitié)
+      desktop => 3 cartes par ligne (prend 4 colonnes soit un tier) -->
+      <div class="col-12 col-md-6 col-lg-4">
+        
+        <!-- toute la carte devient cliquable, route Rails vers /chats/:id -->
+        <%= link_to chat_path(chat), class: "chat-card-link" do %>
+          
+          <!-- classes CSS custom définies dans le SCSS
+          comme la div est à l'intérieur du lien, cliquer n'importe où sur la carte clique sur le lien -->
+          <div class="chat-card">
+
+            <div class="chat-card-header">
+              <!-- <div class="status-dot <%= chat.persona == "avec_emploi" ? "status-employed" : "status-unemployed" %>"></div> -->
+              <div class="status-dot status-unemployed"></div>
+
+              <span class="chat-status">
+                <!-- Rails affiche l'id du chat.
+                => remplacer par <h5><%= chat.title %></h5> -->
+                <h5>Session <%= chat.id %></h5>
+              </span>
+
+            </div>
+
+            <div class="chat-card-body">
+              
+              <p class="chat-meta">
+                <!-- Rails date format -->
+                <%= chat.created_at.strftime("%d %B %Y") %>
+              </p>
+            </div>
+
+            <div class="chat-card-footer">
+              <span>Voir la roadmap →</span>
+            </div>
+
+          </div>
+
+        <% end %>
+
+      </div>
+
+    <% end %>
+
+  </div>
+  
+  <!-- bouton d'accueil, margin-top text-center Bootstrap-->
+  <div class="mt-5 text-center">
+    <!--Rails  -->
+    <%= link_to "Page d'accueil", root_path, class:"btn-home" %>
+  </div>
+
 </div>
