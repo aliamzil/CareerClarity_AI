@@ -1,0 +1,75 @@
+.title {
+  font-weight: 700;
+}
+
+.subtitle {
+  color: #6c757d;
+}
+
+/* card */
+.chat-card-link {
+  text-decoration: none;
+}
+
+.chat-card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: all 0.25s ease;
+}
+
+.chat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 35px rgba(0,0,0,0.12);
+}
+
+/* header */
+.chat-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* status */
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.status-employed {
+  background: #2ecc71;
+}
+
+.status-unemployed {
+  background: #e74c3c;
+}
+
+/* body */
+.chat-card-body h5 {
+  font-weight: 600;
+}
+
+.chat-meta {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+/* footer */
+.chat-card-footer {
+  margin-top: 10px;
+  font-weight: 500;
+  color: #3b82f6;
+}
+
+/* home button */
+.btn-home {
+  background: #243c8f;
+  padding: 12px 30px;
+  border-radius: 40px;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
