@@ -30,8 +30,7 @@
           <div class="chat-card">
 
             <div class="chat-card-header">
-              <!-- <div class="status-dot <%= chat.persona == "avec_emploi" ? "status-employed" : "status-unemployed" %>"></div> -->
-              <div class="status-dot status-unemployed"></div>
+              <div class="status-dot <%= chat.persona.downcase == "avec emploi" ? "status-employed" : "status-unemployed" %>"></div>
 
               <span class="chat-status">
                 <!-- Rails affiche l'id du chat.
