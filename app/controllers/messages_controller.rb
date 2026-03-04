@@ -45,6 +45,17 @@ class MessagesController < ApplicationController
       @messages = @chat.messages
       render "chats/show", status: :unprocessable_entity
     end
+    begin
+      response = @ruby_llm_chat.ask(@message.content)
+      Message.create(content: response.content, role: "assistant", chat: @chat)
+    rescue RubyLLM::RateLimitError
+      # On crée un message d'erreur "fictif" de l'assistant pour informer l'utilisateur
+      Message.create(
+        chat: @chat,
+        role: "assistant",
+        content: "Désolé, je suis un peu surchargé en ce moment. Peux-tu réessayer dans une minute ?"
+      )
+    end
   end
 
   private
