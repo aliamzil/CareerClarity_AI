@@ -3,6 +3,6 @@ class Chat < ApplicationRecord
   belongs_to :user
   has_one :result, dependent: :destroy
 
-  validates :title, presence: true
+  #  validates :title, presence: true
   validates :persona, presence: true
 end
