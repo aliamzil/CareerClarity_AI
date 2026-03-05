@@ -46,6 +46,7 @@ gem "font-awesome-sass", "~> 6.1"
 gem "simple_form", github: "heartcombo/simple_form"
 gem "sassc-rails"
 gem "devise"
+gem "devise-i18n" # gem de traduction
 gem "ruby_llm", "~> 1.2.0"
 group :development, :test do
   gem "dotenv-rails"

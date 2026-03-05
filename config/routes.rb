@@ -17,12 +17,13 @@ Rails.application.routes.draw do
 
   resources :chats, only: [:index, :show, :new, :create] do
     resources :messages, only: [:create]
+    resources :results, only: [:create, :show]
     # Route personnalisée pour déclencher la génération de la roadmap
     member do
       post :generate_roadmap
     end
     # Le résultat est souvent unique par chat
-    resource :result, only: [:show]
+    # resources :results, only: [:show]
   end
 
 end

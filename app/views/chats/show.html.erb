@@ -17,6 +17,10 @@
   </div>
 
   <div class="position-absolute bottom-0 start-50 translate-middle-x mt-5">
+    <%= simple_form_for [@chat, @result] do |f| %>
+     <%= f.hidden_field :roadmap, value: "test" %>
+     <%= f.submit "acceder à mon bilan", class: "btn histo-button mt-5" %>
+    <% end %>
     <div><%= link_to "Voir mon bilan", chat_result_path(@chat), class: "btn histo-button mt-5" %></div>
     <div><%= link_to "Retourner à l'historique", chats_path, class: "btn histo-button mt-5" %></div>
     <div><%= link_to "Retourner à la Page d'accueil", root_path, class:"btn histo-button mt-3" %></div>

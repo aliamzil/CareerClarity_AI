@@ -23,38 +23,39 @@ class MessagesController < ApplicationController
     @message.role = 'user'
 
     if @message.save
-      # Correction : Utilisation d'une méthode plus simple pour l'historique
-      @ruby_llm_chat = RubyLLM.chat.with_instructions(SYSTEM_PROMPT)
+      begin
+        # Correction : Utilisation d'une méthode plus simple pour l'historique
+        @ruby_llm_chat = RubyLLM.chat.with_instructions(SYSTEM_PROMPT)
 
-      # On ajoute les anciens messages à l'IA pour qu'elle ait de la mémoire
-      @chat.messages.where.not(id: @message.id).each do |msg|
-        @ruby_llm_chat.add_message(role: msg.role, content: msg.content)
+        # On ajoute les anciens messages à l'IA pour qu'elle ait de la mémoire
+        @chat.messages.where.not(id: @message.id).each do |msg|
+          @ruby_llm_chat.add_message(role: msg.role, content: msg.content)
+        end
+
+        # On pose la question avec le contenu du nouveau message
+        response = @ruby_llm_chat.ask(@message.content)
+
+        # Sauvegarde de la réponse de l'IA
+        Message.create!(content: response.content, role: "assistant", chat: @chat)
+
+        # Mise à jour du titre si c'est le premier message
+        @chat.generate_title_from_first_message
+      rescue RubyLLM::RateLimitError
+        # On crée un message d'erreur "fictif" de l'assistant pour informer l'utilisateur
+        Message.create!(
+          chat: @chat,
+          role: "assistant",
+          content: "Désolé, je suis un peu surchargé en ce moment. Peux-tu réessayer dans une minute ?"
+        )
+      rescue StandardError => e
+        # Optionnel : log de l'erreur pour le debug si ce n'est pas un RateLimit
+        logger.error "Erreur IA: #{e.message}"
       end
-
-      # On pose la question avec le contenu du nouveau message
-      response = @ruby_llm_chat.ask(@message.content)
-
-      # Sauvegarde de la réponse de l'IA
-      Message.create(content: response.content, role: "assistant", chat: @chat)
-
-      # Mise à jour du titre si c'est le premier message
-      @chat.generate_title_from_first_message
 
       redirect_to chat_path(@chat)
     else
       @messages = @chat.messages
       render "chats/show", status: :unprocessable_entity
-    end
-    begin
-      response = @ruby_llm_chat.ask(@message.content)
-      Message.create(content: response.content, role: "assistant", chat: @chat)
-    rescue RubyLLM::RateLimitError
-      # On crée un message d'erreur "fictif" de l'assistant pour informer l'utilisateur
-      Message.create(
-        chat: @chat,
-        role: "assistant",
-        content: "Désolé, je suis un peu surchargé en ce moment. Peux-tu réessayer dans une minute ?"
-      )
     end
   end
 

@@ -1,67 +1,59 @@
-# app/controllers/results_controller.rb
 class ResultsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_chat
+  # 1. On prépare un prompt spécifique pour la synthèse
+  PROMPT_SYSTEM = <<~PROMPT
+    Analyse toute notre conversation précédente.
+    Génère une roadmap de carrière concrète en 3 à 5 étapes clés.
+    Utilise du **gras** et des listes à puces pour la lisibilité.
+    Sois concis et encourageant.
+  PROMPT
 
+  # POST /chats/:chat_id/results
   def create
-    # On demande à l'IA de faire le bilan basé sur TOUT le chat
-    prompt_final = "Analyse toute notre conversation et génère maintenant la roadmap en étapes concrètes."
-
+    # 2. On initialise l'IA avec le prompt système d'origine
     ruby_llm = RubyLLM.chat.with_instructions(MessagesController::SYSTEM_PROMPT)
 
-    # On passe l'historique complet
-    history = @chat.messages.map { |m| { role: m.role, content: m.content } }
-    response = ruby_llm.ask(prompt_final, history: history)
+    # 4. On appelle l'IA
+    begin
+      response = ruby_llm.ask(instructions)
 
-    # ON CREE LE RESULTAT
-    @result = Result.new(chat: @chat, roadmap: response.content)
+      # 5. On crée ou on met à jour le résultat
+      @result = Result.find_or_create_by(chat: @chat)
+      @result.roadmap = response.content
 
-    if @result.save
-      redirect_to chat_result_path(@chat)
-    else
-      redirect_to chat_path(@chat), alert: "Erreur lors de la génération."
+      if @result.save
+        redirect_to chat_result_path(@chat, @result)
+      else
+        redirect_to chat_path(@chat), alert: "Impossible de sauvegarder la roadmap."
+      end
+    rescue RubyLLM::Error => e
+      redirect_to chat_path(@chat), alert: "L'IA est indisponible pour le moment."
     end
   end
 
+  # GET /chats/:chat_id/results/:id (ou result)
   def show
     @result = @chat.result
+    # Si l'utilisateur tape l'URL du résultat alors qu'il n'est pas encore généré
+    redirect_to chat_path(@chat), alert: "Générez d'abord votre roadmap." if @result.nil? || @result.roadmap.blank?
   end
 
   private
 
   def set_chat
+    # Sécurité : on cherche le chat uniquement dans ceux de l'utilisateur actuel
     @chat = current_user.chats.find(params[:chat_id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to chats_path, alert: "Conversation introuvable."
+  end
+
+  def chat_history
+    # 3. On récupère l'historique complet du chat pour que l'IA ait tout le contexte
+    @chat.messages.map { |m| { role: m.role, content: m.content } }.join(",")
+  end
+
+  def instructions
+    [PROMPT_SYSTEM, chat_history].compact.join
   end
 end
-
-# class ResultsController < ApplicationController
-#   before_action :authenticate_user!
-
-#   SYSTEM_RESULT = "A la fin de cet échange, tu feras un compte
-#   rendu constructif et les démarches à suivre sous forme d'étape."
-
-#   def create
-#     # 1 - ON CREE LE MESSAGE INITIAL DU USER
-#     @chat = current_user.chats.find(params[:chat_id])
-#     # 2- ON CREE L'ASSISTANT
-#     ruby_llm = RubyLLM.chat.with_instructions(instructions)
-#     # 3- ON POSE LA QUESTION A L'ASSISTANT
-#     response = ruby_llm.ask(@message.content)
-#     # 4- ON STOCK LA REPONSE DE L'ASSISTANT EN DB POUR INITIER UNE CONVERSATION
-#     Message.create(content: response.content, role: "assistant", chat: @chat)
-#   end
-
-#   def show
-#     @result = @chat.result
-#   end
-
-#   private
-
-#   def message_params
-#     params.require(:message).permit(:content)
-#   end
-
-#   def instructions
-#     [SYSTEM_PROMPT].compact.join("\n\n")
-#   end
-# end
