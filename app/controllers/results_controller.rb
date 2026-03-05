@@ -1,5 +1,6 @@
 # app/controllers/results_controller.rb
 class ResultsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_chat
 
   def create
