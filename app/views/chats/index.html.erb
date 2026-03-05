@@ -33,9 +33,9 @@
               <div class="status-dot <%= chat.persona.downcase == "avec emploi" ? "status-employed" : "status-unemployed" %>"></div>
 
               <span class="chat-status">
-                <!-- Rails affiche l'id du chat.
-                => remplacer par <h5><%= chat.title %></h5> -->
-                <h5>Session <%= chat.id %></h5>
+                <!-- Rails affiche l'id, ou le titre du chat
+                <h5>Session <%= chat.id %></h5> -->
+                <h5><%= chat.title %></h5>
               </span>
 
             </div>
