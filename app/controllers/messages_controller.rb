@@ -1,3 +1,4 @@
+
 class MessagesController < ApplicationController
   before_action :authenticate_user!
   SYSTEM_PROMPT = "Tu es CareerClarity, un coach en carrière professionnel expert et bienveillant.
