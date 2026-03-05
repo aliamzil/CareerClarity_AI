@@ -8,8 +8,8 @@
         <%= simple_form_for @chat do |f| %>
           <%= f.hidden_field :title, value: "" %>
           <div data-coaching-target="personaButtons" class="d-none">
-          <%= f.submit "Sans emploi", value: "Sans emploi", name: :persona, class: "btn main-button w-50 position-absolute bottom-0 start-0" %>
-          <%= f.submit "Avec emploi", value: "Avec emploi", name: :persona, class: "btn main-button w-50 position-absolute bottom-0 end-0" %>
+          <%= f.submit "Sans emploi", value: "Sans emploi", name: :persona, class: "btn main-button w-50 position-absolute top-100 bottom-0 start-0" %>
+          <%= f.submit "Avec emploi", value: "Avec emploi", name: :persona, class: "btn main-button w-50 position-absolute top-100 bottom-0 end-0" %>
           </div>
         <% end %>
       <!-- JS- stimulus pour afficher les bouttons persona --->
@@ -20,7 +20,7 @@
   <div class="profil-container position-absolute top-50 start-50 translate-middle w-100">
     <div class="card-profil row position-relative">
       <div class="col"><%= image_tag "Avatar.jpg", alt: "avatar", class:"avatar" %></div>
-      <div class ="col"><p>Nom</p><p>Prénom</p></div>
+      <div class ="col"><p><strong>Nom</strong></p><p><strong>Prénom</strong></p></div>
       <div class ="col"><a href="" class="fs-1"><i class="fa-regular fa-circle-right"></i></a></div>
         <div class="page-center text-center position-absolute top-100 start-50 translate-middle">
       <%= link_to "Historique", chats_path, class: "btn histo-button btn-sm" %>
@@ -28,10 +28,9 @@
     </div>
   </div>
 
-
-  <div class="bottom-container d-flex justify-content-evenly position-absolute bottom-0 start-50 translate-middle-x w-100 rounded-top">
-      <div class="mt-2"><i class="icon fa-regular fa-bookmark"></i><%= link_to "Favoris", "#", class: "btn btn-primary"%></div>
-      <div class="mt-2"><i class="icon fa-regular fa-user"></i><%= link_to "Profil", "#", class: "btn btn-primary"%></div>
+  <div class="bottom-container d-flex justify-content-center position-absolute bottom-0 start-50 translate-middle-x w-100 rounded-top">
+      <%= link_to "🔖 Favoris", "#", class:"mt-2 btn btn-primary text-center me-5 buttons" %>
+      <%= link_to "👤 Profil", "#", class:"mt-2 btn btn-primary text-center ms-5 buttons" %>
   </div>
 
 </div>

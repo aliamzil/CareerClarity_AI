@@ -5,6 +5,13 @@
   border-radius: 30px;
   width: 90%;
   height: 70px;
+  box-shadow: 10px 10px 5px black;
+}
+
+.main-button:hover{
+  opacity: 0.7;
+  background-color: #003A9B;
+  box-shadow: 10px 10px 5px black;
 }
 
 .histo-button {
@@ -12,6 +19,18 @@
   border-radius: 30px;
   text-align: center;
   color: white;
-  width: 100%;
+  width: 75%;
   height: 30px;
+  box-shadow: 10px 10px 5px black;
+}
+
+.histo-button:hover {
+  opacity: 0.7;
+  background-color: #003A9B;
+  color: white;
+  box-shadow: 10px 10px 5px black;
+}
+
+.buttons {
+  box-shadow: 10px 10px 5px black;
 }

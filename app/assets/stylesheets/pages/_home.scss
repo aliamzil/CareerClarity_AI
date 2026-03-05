@@ -13,18 +13,26 @@
 }
 
 .bottom-container {
-  background-color: #003A9B;
-  text-align: center;
-  height: 50px;
+  width: 100%;
+  color: white;
+  height: 100px;
+  background-position: center;
+  align-content: center;
+  align-items: center;
+  background-image: linear-gradient(rgba(0,0,0,0.7)), url('BureauV2.jpg');
+  background-size: contain;
+  box-shadow: 10px 10px 5px black;
 }
 
 .hero-container {
   width: 100%;
-  color: #003A9B;
+  color: white;
   height: 230px;
   background-position: center;
   align-content: center;
-  background-image: linear-gradient(rgba(0,0,0,0.2)), url('Bureau.jpg');
+  background-image: linear-gradient(rgba(0,0,0,0.7)), url('BureauV2.jpg');
+  background-size: contain;
+  box-shadow: 10px 10px 5px black;
 }
 
 .icon {

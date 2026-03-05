@@ -1,4 +1,4 @@
-<div class="container position-relative mt-3">
+<div class="container mt-3">
   <h1 class="text-center"><%= @chat.persona %></h1>
 
   <div class="messages-container mb-5">
@@ -9,15 +9,16 @@
     <% end %>
   </div>
 
-  <%= simple_form_for [@chat, @message] do |f| %>
-  <%= f.input :content, label: false, placeholder: "Votre message...", input_html: { rows: 3 } %>
-  <%= f.submit "Envoyer", class: "btn btn-primary btn-lg mt-2" %>
-  <% end %>
-
-  <%= link_to "Voir mon bilan", chat_result_path(@chat), class: "btn histo-button mt-5" %>
-
-</div>
-  <div class="position-absolute bottom-0 start-50 translate-middle-x">
-    <%= link_to "Retourner à l'historique", chats_path, class: "btn histo-button mt-5" %>
-    <%= link_to "Retourner à la Page d'accueil", root_path, class:"btn histo-button mt-3" %>
+  <div class="mb-5 position-relative">
+    <%= simple_form_for [@chat, @message] do |f| %>
+    <%= f.input :content, label: false, placeholder: "Votre message...", input_html: { rows: 3 } %>
+    <%= f.submit "Envoyer", class: "btn btn-primary btn-lg mt-2" %>
+    <% end %>
   </div>
+
+  <div class="position-absolute bottom-0 start-50 translate-middle-x mt-5">
+    <div><%= link_to "Voir mon bilan", chat_result_path(@chat), class: "btn histo-button mt-5" %></div>
+    <div><%= link_to "Retourner à l'historique", chats_path, class: "btn histo-button mt-5" %></div>
+    <div><%= link_to "Retourner à la Page d'accueil", root_path, class:"btn histo-button mt-3" %></div>
+  </div>
+</div>
