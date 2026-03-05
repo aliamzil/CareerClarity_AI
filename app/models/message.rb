@@ -1,10 +1,9 @@
-validates :content, presence: true
-validates :role, presence: true
-validates :role, inclusion: { in: %w[user assistant] }
-
-validate :user_message_limit, if: -> { role == "user" }
-
 class Message < ApplicationRecord
+  validates :content, presence: true
+  validates :role, presence: true
+  validates :role, inclusion: { in: %w[user assistant] }
+
+  validate :user_message_limit, if: -> { role == "user" }
   MAX_USER_MESSAGES = 10
   belongs_to :chat
 

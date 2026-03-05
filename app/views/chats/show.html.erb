@@ -6,22 +6,25 @@
   <%= render "messages", messages: @chat.messages %>
 </div>
 
+<div>
   <div class="mb-3">
     <%= simple_form_for [@chat, @message] do |f| %>
     <%= f.input :content, label: false, placeholder: "Votre message...", input_html: { rows: 3 } %>
     <%= f.submit "Envoyer", class: "btn btn-primary btn-lg mt-2" %>
     <% end %>
   </div>
-  <div class ="text-center"><%= link_to "Voir mon bilan", chat_result_path(@chat), class: "btn histo-button mt-3 mb-3 fw-bold" %></div>
 
- <div class="position-absolute bottom-0 start-50 translate-middle-x mt-5">
+ <div class="text-center">
     <%= simple_form_for [@chat, @result] do |f| %>
      <%= f.hidden_field :roadmap, value: "" %>
-     <%= f.submit "acceder à mon bilan", class: "btn histo-button mt-5" %>
+     <%= f.submit "Acceder à mon bilan", class: "btn histo-button mt-3 mb-3 fw-bold" %>
     <% end %>
+ </div>
+</div>
+
  <div class ="border-top border-black mt-3 mb-3"></div>
 
-  <div class="bottom-container px-0 mx-0 d-flex">
+  <div class="bottom-container nav-bottom px-0 mx-0 d-flex">
     <%= link_to "Retourner à l'historique", chats_path, class:"btn btn-primary text-center me-5 ms-3 buttons" %>
     <%= link_to "Retourner à la page d'accueil", root_path, class:"btn btn-primary text-center ms-5 buttons me-3" %>
   </div>
