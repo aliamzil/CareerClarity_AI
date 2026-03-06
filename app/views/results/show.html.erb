@@ -1,70 +1,38 @@
-<h1>Votre bilan étape par étape</h1>
-<div class="container mt-5 pb-5">
+  <%= render "title" %>
+<div class="container mt-5">
   <div class="row justify-content-center">
-    <div class="col-md-8">
+      <div class="col-md-8">
 
-      <div class="text-center mb-5">
-        <span class="badge bg-primary mb-2">Bilan CareerClarity AI</span>
-        <h1 class="display-4"><%= @chat.title %></h1>
-        <p class="text-muted">Généré pour votre profil : <strong><%= @chat.persona %></strong></p>
-      </div>
-
-      <div class="card-result mb-5">
-            <%# On utilise simple_format pour garder les sauts de ligne de l'IA %>
-            <%= simple_format(@result.roadmap) %>
-      </div>
-
-      <div class="d-flex justify-content-between align-items-center bg-light p-4 rounded-4 shadow-sm mb-5">
-
-        <div>
-          <%= link_to chats_path, class: "btn btn-outline-secondary" do %>
-            <i class="fas fa-arrow-left"></i> Mes conversations
-          <% end %>
+        <div class="text-center mb-5">
+          <span class="badge bg-primary mb-2">Bilan CareerClarity AI</span>
+          <h1 class="display-4"><%= @chat.title %></h1>
+          <p class="text-muted">Généré pour votre profil : <strong><%= @chat.persona %></strong></p>
         </div>
 
-        <div class="text-end">
-          <button class="btn btn-dark" onclick="window.print()">
-            <i class="fas fa-print"></i> Imprimer mon plan
-          </button>
+        <div class="card-result mb-5">
+              <%# On utilise simple_format pour garder les sauts de ligne de l'IA %>
+              <%= simple_format(@result.roadmap) %>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center bg-light p-4 rounded-4 shadow-sm mb-5">
+
+          <div>
+            <%= link_to chats_path, class: "btn btn-outline-secondary" do %>
+              <i class="fas fa-arrow-left"></i> Mes conversations
+            <% end %>
+          </div>
+
+          <div class="text-end">
+            <button class="btn btn-dark" onclick="window.print()">
+              <i class="fas fa-print"></i> Imprimer mon plan</button>
+          </div>
+
         </div>
 
       </div>
-
-    </div>
   </div>
 
-<style>
-  .roadmap-content {
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #2d3436;
-  }
-
-  .roadmap-content h2,
-  .roadmap-content h3 {
-    color: #0d6efd;
-    font-size: 1.1rem;
-    margin-top: 12px;
-    margin-bottom: 2px;
-  }
-
-  .roadmap-content ul {
-    margin-top: 0;
-    margin-bottom: 6px;
-    padding-left: 20px;
-  }
-
-  .roadmap-content li {
-    margin-bottom: 2px;
-    line-height: 1.4;
-  }
-
-  .roadmap-content p {
-    margin-bottom: 6px;
-  }
-</style>
-<%= link_to "Retourner à la Page d'accueil", root_path, class:"btn histo-button mt-3" %>
-    <div class="bottom-container justify-content-center nav-bottom px-0 mx-0 d-flex">
-    <%= link_to "Retourner à la page d'accueil", root_path, class:"btn btn-primary text-center ms-5 buttons me-3" %>
-  </div>
+      <div class="bottom-container justify-content-center nav-bottom px-0 mx-0 d-flex">
+      <%= link_to "Retourner à la page d'accueil", root_path, class:"btn btn-primary text-center ms-5 buttons me-3" %>
+      </div>
 </div>

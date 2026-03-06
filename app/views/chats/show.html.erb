@@ -1,16 +1,16 @@
 <div class="container mt-3">
-  <h1 class="title text-center">🤖 Chat</h1>
-  <p class="text-center subtitle">Catégorie sélectionnée : <%= @chat.persona %></p>
+  <%= render "title"%>
+  <p class="text-center subtitle mt-3">Catégorie sélectionnée : <strong><%= @chat.persona %></strong></p>
 
 <div>
   <%= render "messages", messages: @chat.messages %>
 </div>
 
 <div>
-  <div class="mb-3">
+  <div class="mb-5">
     <%= simple_form_for [@chat, @message] do |f| %>
-    <%= f.input :content, label: false, placeholder: "Votre message...", input_html: { rows: 3 } %>
-    <%= f.submit "Envoyer", class: "btn btn-primary btn-lg mt-2" %>
+    <%= f.input :content, label: false, placeholder: "Posez votre question à Joris, votre coach personnel...", input_html: { rows: 3 } %>
+    <%= f.submit "Demander à Joris", class: "btn btn-primary btn-lg mt-2" %>
     <% end %>
   </div>
 
