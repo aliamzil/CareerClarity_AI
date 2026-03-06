@@ -45,10 +45,14 @@
 .sender-style {
   background-color: #3e82f7;
   color: white;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight : 100px;
 }
 
 .receiver-style {
   background-color: lightblue;
+  font-family: monospace;
+  font-size: 0.95rem;
 }
 
 .card-result {

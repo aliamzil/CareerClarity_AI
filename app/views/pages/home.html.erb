@@ -7,9 +7,9 @@
       <button class="btn main-button position-absolute top-100 start-50 translate-middle" data-coaching-target="startButton"  data-action="click->coaching#start">Démarrez votre coaching</button>
         <%= simple_form_for @chat do |f| %>
           <%= f.hidden_field :title, value: "" %>
-          <div data-coaching-target="personaButtons" class="d-none">
-          <%= f.submit "Sans emploi", value: "Sans emploi", name: :persona, class: "btn main-button w-50 position-absolute top-100 bottom-0 start-0" %>
-          <%= f.submit "Avec emploi", value: "Avec emploi", name: :persona, class: "btn main-button w-50 position-absolute top-100 bottom-0 end-0" %>
+          <div data-coaching-target="personaButtons z-2 row justify-content-between" class="d-none">
+          <%= f.submit "Sans emploi", value: "Sans emploi", name: :persona, class: " col-4 btn main-button w-50 position-absolute top-100 bottom-0 start-0 ms-2 mt-3" %>
+          <%= f.submit "Avec emploi", value: "Avec emploi", name: :persona, class: " col-4 btn main-button w-50 position-absolute top-100 bottom-0 end-0 mt-3 me-2" %>
           </div>
         <% end %>
       <!-- JS- stimulus pour afficher les bouttons persona --->
@@ -20,7 +20,7 @@
   <div class="profil-container position-absolute top-50 start-50 translate-middle w-100">
     <div class="card-profil row position-relative">
       <div class="col"><%= image_tag "Joris.png", alt: "avatar", class:"avatar" %></div>
-      <div class ="col"><p><strong>Nom</strong></p><p><strong>Prénom</strong></p></div>
+      <div class ="col"><p><strong>Kilhoffer</strong></p><p><strong>Elodie</strong></p></div>
       <div class ="col"><a href="" class="fs-1"><i class="fa-regular fa-circle-right"></i></a></div>
         <div class="page-center text-center position-absolute top-100 start-50 translate-middle">
       <%= link_to "Historique", chats_path, class: "btn histo-button btn-sm" %>
